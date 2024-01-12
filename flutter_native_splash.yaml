@@ -1,0 +1,5 @@
+flutter_native_splash:
+  background_image: assets/splash-screen-background.png
+  image: assets/easy-budget.png
+  android: true
+  ios: true
