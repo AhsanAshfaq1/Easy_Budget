@@ -1,10 +1,20 @@
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 
-void main() {
+import './config/config.dart' as config;
+import 'db/db.dart' as db;
+
+void main() async {
+  var databaseConfig = config.config['database'];
+
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  runApp(const App());
+
+  final database = await db.initializeDatabase(
+      databaseConfig['name'], databaseConfig['version']);
+
+  runApp(App(database: database));
 
   Future.delayed(const Duration(seconds: 5), () {
     FlutterNativeSplash.remove();
@@ -12,7 +22,9 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  final Database database;
+
+  const App({super.key, required this.database});
 
   @override
   Widget build(BuildContext context) {
