@@ -22,3 +22,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+dart_pre_commit:
+  outdated: false
+  pull-up-dependencies: false
